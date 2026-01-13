@@ -16,7 +16,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Send, Trash2, List, Link as LinkIcon } from "lucide-react";
+import { Send, Trash2, List, Link as LinkIcon, UserX } from "lucide-react";
 import type { Invitation } from "@/lib/types";
 import {
   AlertDialog,
@@ -103,9 +103,10 @@ export function InvitationList({ invitations, onDeleteInvitation }: InvitationLi
             </Table>
           </div>
         ) : (
-          <div className="text-center py-10 border-2 border-dashed rounded-lg">
-            <p className="text-muted-foreground">Belum ada undangan.</p>
-            <p className="text-muted-foreground">Silakan tambahkan undangan baru.</p>
+          <div className="text-center py-10 border-2 border-dashed rounded-lg flex flex-col items-center justify-center space-y-2">
+            <UserX className="h-12 w-12 text-muted-foreground" />
+            <p className="text-muted-foreground font-semibold text-lg">Belum ada undangan.</p>
+            <p className="text-muted-foreground text-sm">Silakan tambahkan undangan baru di atas.</p>
           </div>
         )}
       </CardContent>

@@ -5,11 +5,21 @@ import { InvitationForm } from "@/components/invitation-form";
 import { InvitationList } from "@/components/invitation-list";
 import { useToast } from "@/hooks/use-toast";
 import type { Invitation } from "@/lib/types";
-import { Rocket } from "lucide-react";
+import { Rocket, PlusCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 export default function Home() {
   const [invitations, setInvitations] = useState<Invitation[]>([]);
   const [isClient, setIsClient] = useState(false);
+  const [isFormOpen, setIsFormOpen] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -32,17 +42,19 @@ export default function Home() {
 
   const addInvitation = (data: { name: string; link: string }) => {
     const newInvitation: Invitation = { ...data, id: crypto.randomUUID() };
-    setInvitations((prev) => [...prev, newInvitation]);
+    setInvitations((prev) => [newInvitation, ...prev]);
     toast({
       title: "Undangan Ditambahkan!",
       description: `Undangan untuk ${data.name} telah berhasil ditambahkan.`,
     });
+    setIsFormOpen(false);
   };
 
   const deleteInvitation = (id: string) => {
     const invitationToDelete = invitations.find(inv => inv.id === id);
     setInvitations((prev) => prev.filter((inv) => inv.id !== id));
     toast({
+      variant: "destructive",
       title: "Undangan Dihapus",
       description: `Undangan untuk ${invitationToDelete?.name} telah dihapus.`,
     });
@@ -53,8 +65,8 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <main className="container mx-auto max-w-4xl px-4 py-6 md:py-10">
+    <div className="min-h-screen bg-background text-foreground font-body">
+      <main className="container mx-auto max-w-2xl px-4 py-8">
         <header className="text-center mb-8">
           <div className="flex justify-center items-center gap-2 mb-2">
             <Rocket className="w-8 h-8 text-primary" />
@@ -62,13 +74,33 @@ export default function Home() {
               WA Invitation Sender
             </h1>
           </div>
-          <p className="text-muted-foreground text-base md:text-lg">
+          <p className="text-muted-foreground text-base">
             Buat dan kirim undangan WhatsApp dengan mudah.
           </p>
         </header>
 
         <div className="space-y-6">
-          <InvitationForm onAddInvitation={addInvitation} />
+          <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
+            <DialogTrigger asChild>
+              <Button className="w-full" size="lg">
+                <PlusCircle className="mr-2" />
+                Tambah Undangan Baru
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+              <DialogHeader>
+                <DialogTitle className="flex items-center gap-2 text-xl font-headline">
+                   <PlusCircle className="text-primary h-5 w-5" />
+                   Tambah Undangan Baru
+                </DialogTitle>
+                <DialogDescription>
+                  Isi nama dan link untuk ditambahkan ke daftar.
+                </DialogDescription>
+              </DialogHeader>
+              <InvitationForm onAddInvitation={addInvitation} />
+            </DialogContent>
+          </Dialog>
+
           <InvitationList invitations={invitations} onDeleteInvitation={deleteInvitation} />
         </div>
 
