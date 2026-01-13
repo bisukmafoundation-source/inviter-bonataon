@@ -67,7 +67,7 @@ export function InvitationList({ invitations, onDeleteInvitation }: InvitationLi
               <TableHeader>
                 <TableRow>
                   <TableHead className="font-semibold">Nama</TableHead>
-                  <TableHead className="text-right font-semibold w-[50px]">Aksi</TableHead>
+                  <TableHead className="text-right font-semibold w-[150px]">Aksi</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -75,47 +75,49 @@ export function InvitationList({ invitations, onDeleteInvitation }: InvitationLi
                   <TableRow key={invite.id}>
                     <TableCell className="font-medium pr-2">{invite.name}</TableCell>
                     <TableCell className="text-right">
-                      <AlertDialog>
-                        <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" size="icon" className="h-8 w-8">
-                              <MoreVertical className="h-4 w-4" />
-                              <span className="sr-only">Menu</span>
-                            </Button>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent align="end">
-                             <DropdownMenuItem asChild>
-                               <a href={invite.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 cursor-pointer">
-                                 <LinkIcon className="h-4 w-4" />
-                                 <span>Lihat Undangan</span>
-                               </a>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem onClick={() => handleSend(invite.name, invite.link)} className="flex items-center gap-2 cursor-pointer">
-                              <Send className="h-4 w-4" />
-                              <span>Kirim via WA</span>
-                            </DropdownMenuItem>
-                            <AlertDialogTrigger asChild>
-                              <DropdownMenuItem className="flex items-center gap-2 cursor-pointer text-destructive focus:text-destructive">
-                                <Trash2 className="h-4 w-4" />
-                                <span>Hapus</span>
+                      <div className="flex items-center justify-end gap-2">
+                        <Button size="sm" className="rounded-full h-8 px-3" onClick={() => handleSend(invite.name, invite.link)}>
+                          <Send className="mr-1.5 h-3.5 w-3.5"/>
+                          Kirim
+                        </Button>
+                        <AlertDialog>
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <Button variant="ghost" size="icon" className="h-8 w-8">
+                                <MoreVertical className="h-4 w-4" />
+                                <span className="sr-only">Menu</span>
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                               <DropdownMenuItem asChild>
+                                 <a href={invite.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 cursor-pointer">
+                                   <LinkIcon className="h-4 w-4" />
+                                   <span>Lihat Undangan</span>
+                                 </a>
                               </DropdownMenuItem>
-                            </AlertDialogTrigger>
-                          </DropdownMenuContent>
-                        </DropdownMenu>
+                              <AlertDialogTrigger asChild>
+                                <DropdownMenuItem className="flex items-center gap-2 cursor-pointer text-destructive focus:text-destructive">
+                                  <Trash2 className="h-4 w-4" />
+                                  <span>Hapus</span>
+                                </DropdownMenuItem>
+                              </AlertDialogTrigger>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
 
-                        <AlertDialogContent>
-                          <AlertDialogHeader>
-                            <AlertDialogTitle>Apakah Anda yakin?</AlertDialogTitle>
-                            <AlertDialogDescription>
-                              Tindakan ini akan menghapus undangan untuk <span className="font-bold">{invite.name}</span> secara permanen. Anda tidak dapat mengurungkan tindakan ini.
-                            </AlertDialogDescription>
-                          </AlertDialogHeader>
-                          <AlertDialogFooter>
-                            <AlertDialogCancel>Batal</AlertDialogCancel>
-                            <AlertDialogAction onClick={() => onDeleteInvitation(invite.id)}>Hapus</AlertDialogAction>
-                          </AlertDialogFooter>
-                        </AlertDialogContent>
-                      </AlertDialog>
+                          <AlertDialogContent>
+                            <AlertDialogHeader>
+                              <AlertDialogTitle>Apakah Anda yakin?</AlertDialogTitle>
+                              <AlertDialogDescription>
+                                Tindakan ini akan menghapus undangan untuk <span className="font-bold">{invite.name}</span> secara permanen. Anda tidak dapat mengurungkan tindakan ini.
+                              </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                              <AlertDialogCancel>Batal</AlertDialogCancel>
+                              <AlertDialogAction onClick={() => onDeleteInvitation(invite.id)}>Hapus</AlertDialogAction>
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialog>
+                      </div>
                     </TableCell>
                   </TableRow>
                 ))}
