@@ -16,7 +16,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Send, Trash2, List, Link as LinkIcon, UserX } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Send, Trash2, List, Link as LinkIcon, UserX, MoreVertical } from "lucide-react";
 import type { Invitation } from "@/lib/types";
 import {
   AlertDialog,
@@ -61,28 +67,42 @@ export function InvitationList({ invitations, onDeleteInvitation }: InvitationLi
               <TableHeader>
                 <TableRow>
                   <TableHead className="font-semibold">Nama</TableHead>
-                  <TableHead className="text-right font-semibold">Aksi</TableHead>
+                  <TableHead className="text-right font-semibold w-[50px]">Aksi</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {invitations.map((invite) => (
                   <TableRow key={invite.id}>
-                    <TableCell className="font-medium">{invite.name}</TableCell>
-                    <TableCell className="text-right space-x-2">
-                       <a href={invite.link} target="_blank" rel="noopener noreferrer" className="inline-flex">
-                        <Button variant="outline" size="icon" aria-label="Lihat Undangan">
-                           <LinkIcon className="h-4 w-4" />
-                         </Button>
-                       </a>
-                       <Button variant="outline" size="icon" onClick={() => handleSend(invite.name, invite.link)} aria-label="Kirim Undangan">
-                         <Send className="h-4 w-4" />
-                       </Button>
+                    <TableCell className="font-medium pr-2">{invite.name}</TableCell>
+                    <TableCell className="text-right">
                       <AlertDialog>
-                        <AlertDialogTrigger asChild>
-                           <Button variant="destructive" size="icon" aria-label="Hapus Undangan">
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                        </AlertDialogTrigger>
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" size="icon" className="h-8 w-8">
+                              <MoreVertical className="h-4 w-4" />
+                              <span className="sr-only">Menu</span>
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end">
+                             <DropdownMenuItem asChild>
+                               <a href={invite.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 cursor-pointer">
+                                 <LinkIcon className="h-4 w-4" />
+                                 <span>Lihat Undangan</span>
+                               </a>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => handleSend(invite.name, invite.link)} className="flex items-center gap-2 cursor-pointer">
+                              <Send className="h-4 w-4" />
+                              <span>Kirim via WA</span>
+                            </DropdownMenuItem>
+                            <AlertDialogTrigger asChild>
+                              <DropdownMenuItem className="flex items-center gap-2 cursor-pointer text-destructive focus:text-destructive">
+                                <Trash2 className="h-4 w-4" />
+                                <span>Hapus</span>
+                              </DropdownMenuItem>
+                            </AlertDialogTrigger>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+
                         <AlertDialogContent>
                           <AlertDialogHeader>
                             <AlertDialogTitle>Apakah Anda yakin?</AlertDialogTitle>
