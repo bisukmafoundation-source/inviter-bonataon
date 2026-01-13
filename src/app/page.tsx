@@ -54,25 +54,25 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <main className="container mx-auto max-w-4xl py-8 px-4 md:py-12">
-        <header className="text-center mb-10">
-          <div className="flex justify-center items-center gap-3 mb-2">
-            <Rocket className="w-9 h-9 text-primary" />
-            <h1 className="text-4xl md:text-5xl font-headline font-bold tracking-tight">
+      <main className="container mx-auto max-w-4xl px-4 py-6 md:py-10">
+        <header className="text-center mb-8">
+          <div className="flex justify-center items-center gap-2 mb-2">
+            <Rocket className="w-8 h-8 text-primary" />
+            <h1 className="text-3xl md:text-4xl font-headline font-bold">
               WA Invitation Sender
             </h1>
           </div>
-          <p className="text-muted-foreground text-lg">
-            Buat dan kirim undangan WhatsApp dengan mudah dan cepat.
+          <p className="text-muted-foreground text-base md:text-lg">
+            Buat dan kirim undangan WhatsApp dengan mudah.
           </p>
         </header>
 
-        <div className="space-y-8">
+        <div className="space-y-6">
           <InvitationForm onAddInvitation={addInvitation} />
           <InvitationList invitations={invitations} onDeleteInvitation={deleteInvitation} />
         </div>
 
-        <footer className="text-center mt-12 text-sm text-muted-foreground">
+        <footer className="text-center mt-10 text-sm text-muted-foreground">
           <p>Dibuat dengan ❤️ untuk kemudahan Anda.</p>
         </footer>
       </main>

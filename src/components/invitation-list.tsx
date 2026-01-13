@@ -16,7 +16,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Send, Trash2, List } from "lucide-react";
+import { Send, Trash2, List, Link as LinkIcon } from "lucide-react";
 import type { Invitation } from "@/lib/types";
 import {
   AlertDialog,
@@ -46,12 +46,12 @@ export function InvitationList({ invitations, onDeleteInvitation }: InvitationLi
   return (
     <Card className="w-full shadow-lg">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-2xl font-headline">
-          <List className="text-primary" />
+        <CardTitle className="flex items-center gap-2 text-xl font-headline">
+          <List className="text-primary h-5 w-5" />
           Daftar Undangan
         </CardTitle>
         <CardDescription>
-          Berikut adalah daftar undangan yang telah Anda tambahkan.
+          Berikut adalah daftar undangan yang telah Anda buat.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -61,7 +61,6 @@ export function InvitationList({ invitations, onDeleteInvitation }: InvitationLi
               <TableHeader>
                 <TableRow>
                   <TableHead className="font-semibold">Nama</TableHead>
-                  <TableHead className="font-semibold hidden md:table-cell">Link</TableHead>
                   <TableHead className="text-right font-semibold">Aksi</TableHead>
                 </TableRow>
               </TableHeader>
@@ -69,12 +68,12 @@ export function InvitationList({ invitations, onDeleteInvitation }: InvitationLi
                 {invitations.map((invite) => (
                   <TableRow key={invite.id}>
                     <TableCell className="font-medium">{invite.name}</TableCell>
-                    <TableCell className="hidden md:table-cell">
-                      <a href={invite.link} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline truncate block max-w-xs">
-                        {invite.link}
-                      </a>
-                    </TableCell>
                     <TableCell className="text-right space-x-2">
+                       <a href={invite.link} target="_blank" rel="noopener noreferrer" className="inline-flex">
+                        <Button variant="outline" size="icon" aria-label="Lihat Undangan">
+                           <LinkIcon className="h-4 w-4" />
+                         </Button>
+                       </a>
                        <Button variant="outline" size="icon" onClick={() => handleSend(invite.name, invite.link)} aria-label="Kirim Undangan">
                          <Send className="h-4 w-4" />
                        </Button>
@@ -106,7 +105,7 @@ export function InvitationList({ invitations, onDeleteInvitation }: InvitationLi
         ) : (
           <div className="text-center py-10 border-2 border-dashed rounded-lg">
             <p className="text-muted-foreground">Belum ada undangan.</p>
-            <p className="text-muted-foreground">Silakan tambahkan undangan baru menggunakan form di atas.</p>
+            <p className="text-muted-foreground">Silakan tambahkan undangan baru.</p>
           </div>
         )}
       </CardContent>

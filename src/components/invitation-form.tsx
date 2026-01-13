@@ -48,23 +48,23 @@ export function InvitationForm({ onAddInvitation }: InvitationFormProps) {
   return (
     <Card className="w-full shadow-lg">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-2xl font-headline">
-          <PlusCircle className="text-primary" />
+        <CardTitle className="flex items-center gap-2 text-xl font-headline">
+          <PlusCircle className="text-primary h-5 w-5" />
           Tambah Undangan Baru
         </CardTitle>
         <CardDescription>
-          Isi nama dan link undangan di bawah ini untuk menambahkannya ke daftar.
+          Isi nama dan link untuk ditambahkan ke daftar.
         </CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
               control={form.control}
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Nama Undangan</FormLabel>
+                  <FormLabel>Nama</FormLabel>
                   <FormControl>
                     <Input placeholder="Contoh: John Doe" {...field} />
                   </FormControl>
@@ -77,7 +77,7 @@ export function InvitationForm({ onAddInvitation }: InvitationFormProps) {
               name="link"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Link Undangan Digital</FormLabel>
+                  <FormLabel>Link Undangan</FormLabel>
                   <FormControl>
                     <Input placeholder="https://undangan.online/contoh" {...field} />
                   </FormControl>
@@ -85,7 +85,7 @@ export function InvitationForm({ onAddInvitation }: InvitationFormProps) {
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full md:w-auto">
+            <Button type="submit" className="w-full">
               <PlusCircle className="mr-2 h-4 w-4" />
               Tambah ke Daftar
             </Button>
