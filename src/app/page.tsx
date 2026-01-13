@@ -80,7 +80,7 @@ const initialInvitations: Invitation[] = [
 
 
 export default function Home() {
-  const [invitations, setInvitations] = useState<Invitation[]>([]);
+  const [invitations, setInvitations] = useState<Invitation[]>(initialInvitations);
   const [isClient, setIsClient] = useState(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -91,12 +91,20 @@ export default function Home() {
     try {
       const savedInvitations = localStorage.getItem('invitations');
       if (savedInvitations) {
-        setInvitations(JSON.parse(savedInvitations));
-      } else {
-        setInvitations(initialInvitations);
+        const parsedSaved = JSON.parse(savedInvitations);
+        // Combine initial and saved, avoiding duplicates
+        const combined = [...initialInvitations];
+        const initialIds = new Set(initialInvitations.map(i => i.id));
+        parsedSaved.forEach((inv: Invitation) => {
+          if (!initialIds.has(inv.id)) {
+            combined.push(inv);
+          }
+        });
+        setInvitations(combined);
       }
     } catch (error) {
       console.error("Failed to parse invitations from localStorage", error);
+      // Fallback to initial invitations
       setInvitations(initialInvitations);
     }
   }, []);
