@@ -57,30 +57,30 @@ const initialInvitations: Invitation[] = [
   { "id": "e4f5a6b7-c8d9-4e0f-a1b2-c3d4e5f6a7b8", "name": "Anggota DPC Partai Gerindra Tapanuli Utara (Tanpa Jabatan)", "link": "https://undangan-bonataon-bisukmagroup2026.vercel.app?to=Anggota%20DPC%20Partai%20Gerindra%20Tapanuli%20Utara" },
   { "id": "f7a8b9c0-d1e2-4f3a-a4b5-c6d7e8f9a0b1", "name": "Wakil Ketua Tuan Sahat Sibarani, S.E", "link": "https://undangan-bonataon-bisukmagroup2026.vercel.app?to=Wakil%20Ketua%20Tuan%20Sahat%20Sibarani,%20S.E" },
   { "id": "a0b1c2d3-e4f5-4a6b-a7c8-d9e0f1a2b3c4", "name": "Wakil Ketua Tuan Bonifasius Nurak Silalahi, S.Pd", "link": "https://undangan-bonataon-bisukmagroup2026.vercel.app?to=Wakil%20Ketua%20Tuan%20Bonifasius%20Nurak%20Silalahi,%20S.Pd" },
-  { "id": "b3c4d5e6-f7a8-4b9c-a0d1-e2f3a4b5c6d7", "name": "Wakil Ketua Tuan Roy Suhartono Hutauruk, SIP", "link": "https://undangan-bonataon-bisukmagroup2026.vercel.app?to=Wakil%20Ketua%20Tuan%20Roy%20Suhartono%20Hutauruk,%20SIP" },
+  { "id": "b3c4d5e6-f7a8-4b9c-a0d1-e2f3a4b5c6d8", "name": "Wakil Ketua Tuan Roy Suhartono Hutauruk, SIP", "link": "https://undangan-bonataon-bisukmagroup2026.vercel.app?to=Wakil%20Ketua%20Tuan%20Roy%20Suhartono%20Hutauruk,%20SIP" },
   { "id": "c6d7e8f9-a0b1-4c2d-a3e4-f5a6b7c8d9e0", "name": "Wakil Ketua Tuan Hendra Sipahutar", "link": "https://undangan-bonataon-bisukmagroup2026.vercel.app?to=Wakil%20Ketua%20Tuan%20Hendra%20Sipahutar" },
   { "id": "d9e0f1a2-b3c4-4d5e-a6f7-b8c9d0e1f2a3", "name": "Wakil Ketua Nyonya Meina Laosma Kristina Simanungkalit", "link": "https://undangan-bonataon-bisukmagroup2026.vercel.app?to=Wakil%20Ketua%20Nyonya%20Meina%20Laosma%20Kristina%20Simanungkalit" },
-  { "id": "e2f3a4b5-c6d7-4e8f-a9b0-c1d2e3f4a5b6", "name": "Wakil Ketua Tuan Jefri Juandi Silitonga", "link": "https://undangan-bonataon-bisukmagroup2026.vercel.app?to=Wakil%20Ketua%20Tuan%20Jefri%20Juandi%20Silitonga" },
+  { "id": "0c2b2db8-2653-48e0-8810-cf9a918a3949", "name": "Wakil Ketua Tuan Jefri Juandi Silitonga", "link": "https://undangan-bonataon-bisukmagroup2026.vercel.app?to=Wakil%20Ketua%20Tuan%20Jefri%20Juandi%20Silitonga" },
   { "id": "f5a6b7c8-d9e0-4f1a-a2c3-d4e5f6a7b8c9", "name": "Wakil Ketua Nyonya Ani Norita Hutabarat, S.Pd", "link": "https://undangan-bonataon-bisukmagroup2026.vercel.app?to=Wakil%20Ketua%20Nyonya%20Ani%20Norita%20Hutabarat,%20S.Pd" },
   { "id": "a8b9c0d1-e2f3-4a4b-a5c6-d7e8f9a0b1c2", "name": "Sekretaris Tuan Timmas Saut Parulian Sitompul, S.E", "link": "https://undangan-bonataon-bisukmagroup2026.vercel.app?to=Sekretaris%20Tuan%20Timmas%20Saut%20Parulian%20Sitompul,%20S.E" },
-  { "id": "b1c2d3e4-f5a6-4b7c-a8d9-e0f1a2b3c4d5", "name": "Wakil Sekretaris Tuan Jefri Juandi Silitonga", "link": "https://undangan-bonataon-bisukmagroup2026.vercel.app?to=Wakil%20Sekretaris%20Tuan%20Jefri%20Juandi%20Silitonga" },
-  { "id": "c4d5e6f7-a8b9-4c0d-a1e2-f3a4b5c6d7e8", "name": "Wakil Sekretaris Tuan Agustinus Sipayung", "link": "https://undangan-bonataon-bisukmagroup2026.vercel.app?to=Wakil%20Sekretaris%20Tuan%20Agustinus%20Sipayung" },
-  { "id": "d7e8f9a0-b1c2-4d3e-a4f5-b6c7d8e9f0a1", "name": "Wakil Sekretaris Tuan Andi Tamarona Saing", "link": "https://undangan-bonataon-bisukmagroup2026.vercel.app?to=Wakil%20Sekretaris%20Tuan%20Andi%20Tamarona%20Saing" },
-  { "id": "e0f1a2b3-c4d5-4e6f-a7b8-c9d0e1f2a3b4", "name": "Wakil Sekretaris Nyonya Lamtiurma Nababan", "link": "https://undangan-bonataon-bisukmagroup2026.vercel.app?to=Wakil%20Sekretaris%20Nyonya%20Lamtiurma%20Nababan" },
-  { "id": "f3a4b5c6-d7e8-4f9a-a0b1-c2d3e4f5a6b7", "name": "Wakil Sekretaris Nona Masriana Sinaga", "link": "https://undangan-bonataon-bisukmagroup2026.vercel.app?to=Wakil%20Sekretaris%20Nona%20Masriana%20Sinaga" },
-  { "id": "a6b7c8d9-e0f1-4a2b-a3c4-d5e6f7a8b9c0", "name": "Wakil Sekretaris Nona Jupika Sitompul", "link": "https://undangan-bonataon-bisukmagroup2026.vercel.app?to=Wakil%20Sekretaris%20Nona%20Jupika%20Sitompul" },
-  { "id": "b9c0d1e2-f3a4-4b5c-a6d7-e8f9a0b1c2d3", "name": "Wakil Sekretaris Tuan Sahat Martupa Sibagariang", "link": "https://undangan-bonataon-bisukmagroup2026.vercel.app?to=Wakil%20Sekretaris%20Tuan%20Sahat%20Martupa%20Sibagariang" },
-  { "id": "c2d3e4f5-a6b7-4c8d-a9e0-f1a2b3c4d5e6", "name": "Wakil Sekretaris Tuan Mian Tomos Sianipar", "link": "https://undangan-bonataon-bisukmagroup2026.vercel.app?to=Wakil%20Sekretaris%20Tuan%20Mian%20Tomos%20Sianipar" },
-  { "id": "d5e6f7a8-b9c0-4d1e-a2f3-b4c5d6e7f8a9", "name": "Wakil Sekretaris Nona Lidia Wati Hutagalung", "link": "https://undangan-bonataon-bisukmagroup2026.vercel.app?to=Wakil%20Sekretaris%20Nona%20Lidia%20Wati%20Hutagalung" },
-  { "id": "e8f9a0b1-c2d3-4e4f-a5b6-c7d8e9f0a1b2", "name": "Wakil Sekretaris Nyonya Erni Mesalina Hutauruk", "link": "https://undangan-bonataon-bisukmagroup2026.vercel.app?to=Wakil%20Sekretaris%20Nyonya%20Erni%20Mesalina%20Hutauruk" },
-  { "id": "f1a2b3c4-d5e6-4f7a-a8b9-c0d1e2f3a4b5", "name": "Bendahara Nyonya Dermawan Sihotang", "link": "https://undangan-bonataon-bisukmagroup2026.vercel.app?to=Bendahara%20Nyonya%20Dermawan%20Sihotang" },
-  { "id": "a4b5c6d7-e8f9-4a0b-b1c2-d3e4f5a6b7c8", "name": "Wakil Bendahara Nona Lia Finola Pasaribu, S.Pd", "link": "https://undangan-bonataon-bisukmagroup2026.vercel.app?to=Wakil%20Bendahara%20Nona%20Lia%20Finola%20Pasaribu,%20S.Pd" },
-  { "id": "b7c8d9e0-f1a2-4b3c-b4d5-e6f7a8b9c0d1", "name": "Wakil Bendahara Nyonya Erni Sinaga", "link": "https://undangan-bonataon-bisukmagroup2026.vercel.app?to=Wakil%20Bendahara%20Nyonya%20Erni%20Sinaga" }
+  { "id": "b1c2d3e4-f5a6-4b7c-a8d9-e0f1a2b3c4d6", "name": "Wakil Sekretaris Tuan Jefri Juandi Silitonga", "link": "https://undangan-bonataon-bisukmagroup2026.vercel.app?to=Wakil%20Sekretaris%20Tuan%20Jefri%20Juandi%20Silitonga" },
+  { "id": "c4d5e6f7-a8b9-4c0d-a1e2-f3a4b5c6d7e9", "name": "Wakil Sekretaris Tuan Agustinus Sipayung", "link": "https://undangan-bonataon-bisukmagroup2026.vercel.app?to=Wakil%20Sekretaris%20Tuan%20Agustinus%20Sipayung" },
+  { "id": "d7e8f9a0-b1c2-4d3e-a4f5-b6c7d8e9f0a2", "name": "Wakil Sekretaris Tuan Andi Tamarona Saing", "link": "https://undangan-bonataon-bisukmagroup2026.vercel.app?to=Wakil%20Sekretaris%20Tuan%20Andi%20Tamarona%20Saing" },
+  { "id": "e0f1a2b3-c4d5-4e6f-a7b8-c9d0e1f2a3b5", "name": "Wakil Sekretaris Nyonya Lamtiurma Nababan", "link": "https://undangan-bonataon-bisukmagroup2026.vercel.app?to=Wakil%20Sekretaris%20Nyonya%20Lamtiurma%20Nababan" },
+  { "id": "f3a4b5c6-d7e8-4f9a-a0b1-c2d3e4f5a6b8", "name": "Wakil Sekretaris Nona Masriana Sinaga", "link": "https://undangan-bonataon-bisukmagroup2026.vercel.app?to=Wakil%20Sekretaris%20Nona%20Masriana%20Sinaga" },
+  { "id": "a6b7c8d9-e0f1-4a2b-a3c4-d5e6f7a8b9c1", "name": "Wakil Sekretaris Nona Jupika Sitompul", "link": "https://undangan-bonataon-bisukmagroup2026.vercel.app?to=Wakil%20Sekretaris%20Nona%20Jupika%20Sitompul" },
+  { "id": "b9c0d1e2-f3a4-4b5c-a6d7-e8f9a0b1c2d4", "name": "Wakil Sekretaris Tuan Sahat Martupa Sibagariang", "link": "https://undangan-bonataon-bisukmagroup2026.vercel.app?to=Wakil%20Sekretaris%20Tuan%20Sahat%20Martupa%20Sibagariang" },
+  { "id": "c2d3e4f5-a6b7-4c8d-a9e0-f1a2b3c4d5e7", "name": "Wakil Sekretaris Tuan Mian Tomos Sianipar", "link": "https://undangan-bonataon-bisukmagroup2026.vercel.app?to=Wakil%20Sekretaris%20Tuan%20Mian%20Tomos%20Sianipar" },
+  { "id": "d5e6f7a8-b9c0-4d1e-a2f3-b4c5d6e7f8b0", "name": "Wakil Sekretaris Nona Lidia Wati Hutagalung", "link": "https://undangan-bonataon-bisukmagroup2026.vercel.app?to=Wakil%20Sekretaris%20Nona%20Lidia%20Wati%20Hutagalung" },
+  { "id": "e8f9a0b1-c2d3-4e4f-a5b6-c7d8e9f0a1b3", "name": "Wakil Sekretaris Nyonya Erni Mesalina Hutauruk", "link": "https://undangan-bonataon-bisukmagroup2026.vercel.app?to=Wakil%20Sekretaris%20Nyonya%20Erni%20Mesalina%20Hutauruk" },
+  { "id": "f1a2b3c4-d5e6-4f7a-a8b9-c0d1e2f3a4b6", "name": "Bendahara Nyonya Dermawan Sihotang", "link": "https://undangan-bonataon-bisukmagroup2026.vercel.app?to=Bendahara%20Nyonya%20Dermawan%20Sihotang" },
+  { "id": "a4b5c6d7-e8f9-4a0b-b1c2-d3e4f5a6b7c9", "name": "Wakil Bendahara Nona Lia Finola Pasaribu, S.Pd", "link": "https://undangan-bonataon-bisukmagroup2026.vercel.app?to=Wakil%20Bendahara%20Nona%20Lia%20Finola%20Pasaribu,%20S.Pd" },
+  { "id": "b7c8d9e0-f1a2-4b3c-b4d5-e6f7a8b9c0d2", "name": "Wakil Bendahara Nyonya Erni Sinaga", "link": "https://undangan-bonataon-bisukmagroup2026.vercel.app?to=Wakil%20Bendahara%20Nyonya%20Erni%20Sinaga" }
 ];
 
 
 export default function Home() {
-  const [invitations, setInvitations] = useState<Invitation[]>(initialInvitations);
+  const [invitations, setInvitations] = useState<Invitation[]>([]);
   const [isClient, setIsClient] = useState(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -88,30 +88,30 @@ export default function Home() {
 
   useEffect(() => {
     setIsClient(true);
+    let savedInvitations: Invitation[] = [];
     try {
-      const savedInvitations = localStorage.getItem('invitations');
-      if (savedInvitations) {
-        const parsedSaved = JSON.parse(savedInvitations);
-        // Combine initial and saved, avoiding duplicates
-        const combined = [...initialInvitations];
-        const initialIds = new Set(initialInvitations.map(i => i.id));
-        parsedSaved.forEach((inv: Invitation) => {
-          if (!initialIds.has(inv.id)) {
-            combined.push(inv);
-          }
-        });
-        setInvitations(combined);
+      const savedData = localStorage.getItem('invitations');
+      if (savedData) {
+        savedInvitations = JSON.parse(savedData);
       }
     } catch (error) {
       console.error("Failed to parse invitations from localStorage", error);
-      // Fallback to initial invitations
-      setInvitations(initialInvitations);
     }
+
+    const initialIds = new Set(initialInvitations.map(i => i.id));
+    const uniqueSaved = savedInvitations.filter(inv => !initialIds.has(inv.id));
+    
+    setInvitations([...initialInvitations, ...uniqueSaved]);
+
   }, []);
 
   useEffect(() => {
     if (isClient) {
-      localStorage.setItem('invitations', JSON.stringify(invitations));
+      // Don't save the initial invitations to local storage, only user-added ones.
+      const userAddedInvitations = invitations.filter(
+        (inv) => !initialInvitations.some(initInv => initInv.id === inv.id)
+      );
+      localStorage.setItem('invitations', JSON.stringify(userAddedInvitations));
     }
   }, [invitations, isClient]);
 
