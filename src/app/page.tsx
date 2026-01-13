@@ -5,7 +5,7 @@ import { InvitationForm } from "@/components/invitation-form";
 import { InvitationList } from "@/components/invitation-list";
 import { useToast } from "@/hooks/use-toast";
 import type { Invitation } from "@/lib/types";
-import { Rocket, PlusCircle } from "lucide-react";
+import { Rocket, PlusCircle, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -15,6 +15,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
 
 const initialInvitations: Invitation[] = [
   { "id": "f5f1c9c4-c1e9-4e1a-a1b7-6e4745e2a2c1", "name": "Pemilik Dapur Dairi", "link": "https://undangan-bonataon-bisukmagroup2026.vercel.app?to=Pemilik%20Dapur%20Dairi" },
@@ -82,6 +83,7 @@ export default function Home() {
   const [invitations, setInvitations] = useState<Invitation[]>([]);
   const [isClient, setIsClient] = useState(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const { toast } = useToast();
 
   useEffect(() => {
@@ -125,6 +127,10 @@ export default function Home() {
     });
   };
 
+  const filteredInvitations = invitations.filter((invitation) =>
+    invitation.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   if (!isClient) {
     return null;
   }
@@ -166,7 +172,18 @@ export default function Home() {
             </DialogContent>
           </Dialog>
 
-          <InvitationList invitations={invitations} onDeleteInvitation={deleteInvitation} />
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+            <Input
+              type="search"
+              placeholder="Cari nama undangan..."
+              className="pl-10"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
+
+          <InvitationList invitations={filteredInvitations} onDeleteInvitation={deleteInvitation} />
         </div>
 
         <footer className="text-center mt-10 text-sm text-muted-foreground">
