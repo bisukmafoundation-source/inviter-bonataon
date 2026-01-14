@@ -28,7 +28,7 @@ export default function Home() {
 
     if (error) {
       console.error("Error fetching invitations:", error);
-      setError("Gagal memuat data dari Supabase. Pastikan koneksi dan kredensial sudah benar.");
+      setError("Gagal memuat data dari Supabase. Pastikan koneksi dan kredensial sudah benar, dan tabel 'invitations' sudah dibuat.");
       setInvitations([]);
     } else {
       setInvitations(data || []);
@@ -66,8 +66,6 @@ export default function Home() {
   };
   
   const deleteAllInvitations = async () => {
-    // Supabase RLS policies might prevent a mass delete from the client-side.
-    // A better approach is a db function, but for now we delete one by one.
     setError(null);
     const allIds = invitations.map(i => i.id);
     const { error } = await supabase.from('invitations').delete().in('id', allIds);
