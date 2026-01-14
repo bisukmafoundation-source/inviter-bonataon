@@ -17,11 +17,10 @@ import { PlusCircle } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Nama harus memiliki setidaknya 2 karakter." }),
-  link: z.string().url({ message: "Harap masukkan URL undangan yang valid." }),
 });
 
 interface InvitationFormProps {
-  onAddInvitation: (data: z.infer<typeof formSchema>) => void;
+  onAddInvitation: (data: { name: string; link: string }) => void;
 }
 
 export function InvitationForm({ onAddInvitation }: InvitationFormProps) {
@@ -29,12 +28,13 @@ export function InvitationForm({ onAddInvitation }: InvitationFormProps) {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
-      link: "",
     },
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    onAddInvitation(values);
+    const baseUrl = "https://undangan-bonataon-bisukmagroup2026.vercel.app";
+    const generatedLink = `${baseUrl}?to=${encodeURIComponent(values.name)}`;
+    onAddInvitation({ name: values.name, link: generatedLink });
     form.reset();
   }
 
@@ -49,19 +49,6 @@ export function InvitationForm({ onAddInvitation }: InvitationFormProps) {
               <FormLabel>Nama</FormLabel>
               <FormControl>
                 <Input placeholder="Contoh: John Doe" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="link"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Link Undangan</FormLabel>
-              <FormControl>
-                <Input placeholder="https://undangan.online/contoh" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

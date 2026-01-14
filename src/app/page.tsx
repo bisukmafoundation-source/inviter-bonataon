@@ -112,7 +112,7 @@ export default function Home() {
                    Tambah Undangan Baru
                 </DialogTitle>
                 <DialogDescription>
-                  Isi nama dan link untuk ditambahkan ke daftar.
+                  Isi nama untuk ditambahkan ke daftar. Link akan dibuat otomatis.
                 </DialogDescription>
               </DialogHeader>
               <InvitationForm onAddInvitation={addInvitation} />
