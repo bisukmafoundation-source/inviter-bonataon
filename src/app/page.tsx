@@ -9,23 +9,47 @@ import { Input } from "@/components/ui/input";
 import { initialInvitations } from "@/lib/invitation-data";
 import type { Invitation } from "@/lib/types";
 import { Search } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import { Trash } from "lucide-react";
+
 
 export default function Home() {
   const [invitations, setInvitations] = useState<Invitation[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    const storedInvitations = localStorage.getItem("invitations");
-    if (storedInvitations) {
-      setInvitations(JSON.parse(storedInvitations));
-    } else {
+    try {
+      const storedInvitations = localStorage.getItem("invitations");
+      if (storedInvitations) {
+        setInvitations(JSON.parse(storedInvitations));
+      } else {
+        setInvitations(initialInvitations);
+      }
+    } catch (error) {
+      console.error("Failed to parse invitations from localStorage", error);
       setInvitations(initialInvitations);
     }
   }, []);
 
   useEffect(() => {
-    if (invitations.length > 0) {
-      localStorage.setItem("invitations", JSON.stringify(invitations));
+    try {
+      // Only set item if invitations has been initialized
+      if (invitations.length > 0 || localStorage.getItem('invitations')) {
+        localStorage.setItem("invitations", JSON.stringify(invitations));
+      }
+    } catch (error) {
+      console.error("Failed to save invitations to localStorage", error);
     }
   }, [invitations]);
 
@@ -40,6 +64,12 @@ export default function Home() {
     setInvitations((prev) => prev.filter((invite) => invite.id !== id));
   };
   
+  const deleteAllInvitations = () => {
+    setInvitations([]);
+    // Also clear from localStorage directly
+    localStorage.removeItem("invitations");
+  };
+
   const filteredInvitations = invitations.filter((invitation) =>
     invitation.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -76,7 +106,11 @@ export default function Home() {
           />
         </div>
 
-        <InvitationList invitations={filteredInvitations} onDeleteInvitation={deleteInvitation} />
+        <InvitationList 
+          invitations={filteredInvitations} 
+          onDeleteInvitation={deleteInvitation} 
+          onDeleteAll={deleteAllInvitations}
+        />
       </div>
 
       <footer className="w-full py-4 text-center">

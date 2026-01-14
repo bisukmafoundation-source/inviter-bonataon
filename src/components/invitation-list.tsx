@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -22,7 +23,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Send, Trash2, List, Link as LinkIcon, UserX, MoreVertical } from "lucide-react";
+import { Send, Trash2, List, Link as LinkIcon, UserX, MoreVertical, Trash } from "lucide-react";
 import type { Invitation } from "@/lib/types";
 import {
   AlertDialog,
@@ -40,9 +41,10 @@ import {
 interface InvitationListProps {
   invitations: Invitation[];
   onDeleteInvitation: (id: string) => void;
+  onDeleteAll: () => void;
 }
 
-export function InvitationList({ invitations, onDeleteInvitation }: InvitationListProps) {
+export function InvitationList({ invitations, onDeleteInvitation, onDeleteAll }: InvitationListProps) {
   const handleSend = (name: string, link: string) => {
     const message = `Kepada Yth. Bapak/Ibu/Saudara/i ${name},\n\nDengan hormat, kami mengundang Anda ke acara kami.\n\nSilakan lihat undangan digital kami di sini:\n${link}\n\nAtas kehadiran dan do'a restu Bapak/Ibu/Saudara/i, kami ucapkan terima kasih.`;
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
@@ -51,14 +53,38 @@ export function InvitationList({ invitations, onDeleteInvitation }: InvitationLi
 
   return (
     <Card className="w-full shadow-lg">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-xl font-headline">
-          <List className="text-primary h-5 w-5" />
-          Daftar Undangan
-        </CardTitle>
-        <CardDescription>
-          Berikut adalah daftar undangan yang telah Anda buat.
-        </CardDescription>
+      <CardHeader className="flex flex-row items-center justify-between">
+        <div>
+          <CardTitle className="flex items-center gap-2 text-xl font-headline">
+            <List className="text-primary h-5 w-5" />
+            Daftar Undangan
+          </CardTitle>
+          <CardDescription>
+            Total {invitations.length} undangan dalam daftar.
+          </CardDescription>
+        </div>
+        {invitations.length > 0 && (
+           <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button variant="destructive" size="sm">
+                <Trash className="mr-2 h-4 w-4" />
+                Hapus Semua
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Apakah Anda yakin ingin menghapus semua undangan?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  Tindakan ini akan menghapus semua ({invitations.length}) undangan secara permanen. Anda tidak dapat mengurungkan tindakan ini.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Batal</AlertDialogCancel>
+                <AlertDialogAction onClick={onDeleteAll}>Ya, Hapus Semua</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        )}
       </CardHeader>
       <CardContent>
         {invitations.length > 0 ? (
