@@ -16,24 +16,35 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // createClient() akan crash jika env vars tidak diatur.
+  // Pastikan .env.local atau Vercel env vars sudah benar.
   const supabase = createClient();
 
   const fetchInvitations = useCallback(async () => {
     setLoading(true);
     setError(null);
-    const { data, error } = await supabase
-      .from("invitations")
-      .select("*")
-      .order("created_at", { ascending: false });
+    try {
+      const { data, error: fetchError } = await supabase
+        .from("invitations")
+        .select("*")
+        .order("created_at", { ascending: false });
 
-    if (error) {
-      console.error("Error fetching invitations:", error);
-      setError("Gagal memuat data dari Supabase. Pastikan koneksi dan kredensial sudah benar, dan tabel 'invitations' sudah dibuat.");
-      setInvitations([]);
-    } else {
+      if (fetchError) {
+        throw fetchError;
+      }
+      
       setInvitations(data || []);
+    } catch (err: any) {
+      console.error("Error fetching invitations:", err);
+      if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+        setError("Kredensial Supabase tidak ditemukan. Silakan atur di file .env.local atau di pengaturan environment Vercel.");
+      } else {
+        setError("Gagal memuat data dari Supabase. Pastikan koneksi dan kredensial sudah benar, dan tabel 'invitations' sudah dibuat.");
+      }
+      setInvitations([]);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   }, [supabase]);
 
   useEffect(() => {
@@ -41,13 +52,13 @@ export default function Home() {
   }, [fetchInvitations]);
 
   const addInvitation = async (newInvitation: { name: string; link: string }) => {
-    const { data, error } = await supabase
+    const { data, error: insertError } = await supabase
       .from("invitations")
       .insert([newInvitation])
       .select();
 
-    if (error) {
-      console.error("Error adding invitation:", error);
+    if (insertError) {
+      console.error("Error adding invitation:", insertError);
       setError("Gagal menambahkan undangan.");
     } else if (data) {
       setInvitations((prev) => [data[0], ...prev]);
@@ -55,10 +66,10 @@ export default function Home() {
   };
 
   const deleteInvitation = async (id: string) => {
-    const { error } = await supabase.from("invitations").delete().match({ id });
+    const { error: deleteError } = await supabase.from("invitations").delete().match({ id });
 
-    if (error) {
-      console.error("Error deleting invitation:", error);
+    if (deleteError) {
+      console.error("Error deleting invitation:", deleteError);
       setError("Gagal menghapus undangan.");
     } else {
       setInvitations((prev) => prev.filter((invite) => invite.id !== id));
@@ -68,10 +79,10 @@ export default function Home() {
   const deleteAllInvitations = async () => {
     setError(null);
     const allIds = invitations.map(i => i.id);
-    const { error } = await supabase.from('invitations').delete().in('id', allIds);
+    const { error: deleteAllError } = await supabase.from('invitations').delete().in('id', allIds);
 
-    if (error) {
-      console.error("Error deleting all invitations:", error);
+    if (deleteAllError) {
+      console.error("Error deleting all invitations:", deleteAllError);
       setError("Gagal menghapus semua undangan. Cek RLS policy di Supabase.");
     } else {
        setInvitations([]);
