@@ -46,7 +46,7 @@ interface InvitationListProps {
 
 export function InvitationList({ invitations, onDeleteInvitation, onDeleteAll }: InvitationListProps) {
   const handleSend = (name: string, link: string) => {
-    const message = `Kepada Yth. Bapak/Ibu/Saudara/i ${name},\n\nDengan hormat, kami mengundang Anda ke acara kami.\n\nSilakan lihat undangan digital kami di sini:\n${link}\n\nAtas kehadiran dan do'a restu Bapak/Ibu/Saudara/i, kami ucapkan terima kasih.`;
+    const message = `Kepada Yth. Bapak/Ibu/Saudara/i ${name},\n\nDengan hormat, dengan kerendahan hati kami mengundang bapak ibu untuk hadir di acara Bona Taon Bisukma Grup.\n\nSilakan lihat undangan digital kami di sini:\n${link}\n\nAtas kehadiran dan do'a restu Bapak/Ibu/Saudara/i, kami ucapkan terima kasih.`;
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
   };
