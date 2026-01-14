@@ -20,7 +20,7 @@ const formSchema = z.object({
 });
 
 interface InvitationFormProps {
-  onAddInvitation: (data: { name: string; link: string }) => void;
+  onAddInvitation: (data: { name: string; link: string }) => Promise<void>;
 }
 
 export function InvitationForm({ onAddInvitation }: InvitationFormProps) {
@@ -31,10 +31,10 @@ export function InvitationForm({ onAddInvitation }: InvitationFormProps) {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     const baseUrl = "https://undangan-bonataon-bisukmagroup2026.vercel.app";
     const generatedLink = `${baseUrl}?to=${encodeURIComponent(values.name)}`;
-    onAddInvitation({ name: values.name, link: generatedLink });
+    await onAddInvitation({ name: values.name, link: generatedLink });
     form.reset();
   }
 
@@ -54,9 +54,13 @@ export function InvitationForm({ onAddInvitation }: InvitationFormProps) {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full">
-          <PlusCircle className="mr-2 h-4 w-4" />
-          Tambah ke Daftar
+        <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
+          {form.formState.isSubmitting ? "Menambahkan..." : (
+            <>
+              <PlusCircle className="mr-2 h-4 w-4" />
+              Tambah ke Daftar
+            </>
+          )}
         </Button>
       </form>
     </Form>

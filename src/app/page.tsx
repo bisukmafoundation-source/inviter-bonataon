@@ -1,73 +1,83 @@
 
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { InvitationForm } from "@/components/invitation-form";
 import { InvitationList } from "@/components/invitation-list";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { initialInvitations } from "@/lib/invitation-data";
 import type { Invitation } from "@/lib/types";
 import { Search } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import { Trash } from "lucide-react";
-
+import { createClient } from "@/utils/supabase/client";
 
 export default function Home() {
   const [invitations, setInvitations] = useState<Invitation[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const supabase = createClient();
+
+  const fetchInvitations = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    const { data, error } = await supabase
+      .from("invitations")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      console.error("Error fetching invitations:", error);
+      setError("Gagal memuat data dari Supabase. Pastikan koneksi dan kredensial sudah benar.");
+      setInvitations([]);
+    } else {
+      setInvitations(data || []);
+    }
+    setLoading(false);
+  }, [supabase]);
 
   useEffect(() => {
-    try {
-      const storedInvitations = localStorage.getItem("invitations");
-      if (storedInvitations) {
-        setInvitations(JSON.parse(storedInvitations));
-      } else {
-        setInvitations(initialInvitations);
-      }
-    } catch (error) {
-      console.error("Failed to parse invitations from localStorage", error);
-      setInvitations(initialInvitations);
-    }
-  }, []);
+    fetchInvitations();
+  }, [fetchInvitations]);
 
-  useEffect(() => {
-    try {
-      // Only set item if invitations has been initialized
-      if (invitations.length > 0 || localStorage.getItem('invitations')) {
-        localStorage.setItem("invitations", JSON.stringify(invitations));
-      }
-    } catch (error) {
-      console.error("Failed to save invitations to localStorage", error);
-    }
-  }, [invitations]);
+  const addInvitation = async (newInvitation: { name: string; link: string }) => {
+    const { data, error } = await supabase
+      .from("invitations")
+      .insert([newInvitation])
+      .select();
 
-  const addInvitation = (newInvitation: { name: string; link: string }) => {
-    setInvitations((prev) => [
-      { id: crypto.randomUUID(), ...newInvitation },
-      ...prev,
-    ]);
+    if (error) {
+      console.error("Error adding invitation:", error);
+      setError("Gagal menambahkan undangan.");
+    } else if (data) {
+      setInvitations((prev) => [data[0], ...prev]);
+    }
   };
 
-  const deleteInvitation = (id: string) => {
-    setInvitations((prev) => prev.filter((invite) => invite.id !== id));
+  const deleteInvitation = async (id: string) => {
+    const { error } = await supabase.from("invitations").delete().match({ id });
+
+    if (error) {
+      console.error("Error deleting invitation:", error);
+      setError("Gagal menghapus undangan.");
+    } else {
+      setInvitations((prev) => prev.filter((invite) => invite.id !== id));
+    }
   };
   
-  const deleteAllInvitations = () => {
-    setInvitations([]);
-    // Also clear from localStorage directly
-    localStorage.removeItem("invitations");
+  const deleteAllInvitations = async () => {
+    // Supabase RLS policies might prevent a mass delete from the client-side.
+    // A better approach is a db function, but for now we delete one by one.
+    setError(null);
+    const allIds = invitations.map(i => i.id);
+    const { error } = await supabase.from('invitations').delete().in('id', allIds);
+
+    if (error) {
+      console.error("Error deleting all invitations:", error);
+      setError("Gagal menghapus semua undangan. Cek RLS policy di Supabase.");
+    } else {
+       setInvitations([]);
+    }
   };
 
   const filteredInvitations = invitations.filter((invitation) =>
@@ -105,12 +115,18 @@ export default function Home() {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
-
-        <InvitationList 
-          invitations={filteredInvitations} 
-          onDeleteInvitation={deleteInvitation} 
-          onDeleteAll={deleteAllInvitations}
-        />
+        
+        {error && <p className="text-destructive text-center">{error}</p>}
+        
+        {loading ? (
+           <p className="text-center">Memuat data undangan...</p>
+        ) : (
+          <InvitationList 
+            invitations={filteredInvitations} 
+            onDeleteInvitation={deleteInvitation} 
+            onDeleteAll={deleteAllInvitations}
+          />
+        )}
       </div>
 
       <footer className="w-full py-4 text-center">
