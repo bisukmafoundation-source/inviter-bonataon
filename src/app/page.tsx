@@ -9,18 +9,32 @@ import { Input } from "@/components/ui/input";
 import type { Invitation } from "@/lib/types";
 import { Search } from "lucide-react";
 import { createClient } from "@/utils/supabase/client";
+import type { SupabaseClient } from "@supabase/supabase-js";
 
 export default function Home() {
   const [invitations, setInvitations] = useState<Invitation[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [supabase, setSupabase] = useState<SupabaseClient | null>(null);
 
-  // createClient() akan crash jika env vars tidak diatur.
-  // Pastikan .env.local atau Vercel env vars sudah benar.
-  const supabase = createClient();
+  useEffect(() => {
+    // Inisialisasi Supabase client hanya di sisi klien
+    // untuk memastikan environment variables sudah tersedia.
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+    if (supabaseUrl && supabaseAnonKey) {
+      setSupabase(createClient());
+    } else {
+      setError("Kredensial Supabase tidak ditemukan. Silakan atur di file .env.local atau di pengaturan environment Vercel.");
+      setLoading(false);
+    }
+  }, []);
 
   const fetchInvitations = useCallback(async () => {
+    if (!supabase) return;
+
     setLoading(true);
     setError(null);
     try {
@@ -36,11 +50,7 @@ export default function Home() {
       setInvitations(data || []);
     } catch (err: any) {
       console.error("Error fetching invitations:", err);
-      if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
-        setError("Kredensial Supabase tidak ditemukan. Silakan atur di file .env.local atau di pengaturan environment Vercel.");
-      } else {
-        setError("Gagal memuat data dari Supabase. Pastikan koneksi dan kredensial sudah benar, dan tabel 'invitations' sudah dibuat.");
-      }
+      setError("Gagal memuat data dari Supabase. Pastikan koneksi dan kredensial sudah benar, dan tabel 'invitations' sudah dibuat.");
       setInvitations([]);
     } finally {
       setLoading(false);
@@ -48,10 +58,13 @@ export default function Home() {
   }, [supabase]);
 
   useEffect(() => {
-    fetchInvitations();
-  }, [fetchInvitations]);
+    if (supabase) {
+      fetchInvitations();
+    }
+  }, [supabase, fetchInvitations]);
 
   const addInvitation = async (newInvitation: { name: string; link: string }) => {
+     if (!supabase) return;
     const { data, error: insertError } = await supabase
       .from("invitations")
       .insert([newInvitation])
@@ -66,6 +79,7 @@ export default function Home() {
   };
 
   const deleteInvitation = async (id: string) => {
+    if (!supabase) return;
     const { error: deleteError } = await supabase.from("invitations").delete().match({ id });
 
     if (deleteError) {
@@ -77,6 +91,7 @@ export default function Home() {
   };
   
   const deleteAllInvitations = async () => {
+    if (!supabase) return;
     setError(null);
     const allIds = invitations.map(i => i.id);
     const { error: deleteAllError } = await supabase.from('invitations').delete().in('id', allIds);
@@ -129,7 +144,7 @@ export default function Home() {
         
         {loading ? (
            <p className="text-center">Memuat data undangan...</p>
-        ) : (
+        ) : !supabase ? null : (
           <InvitationList 
             invitations={filteredInvitations} 
             onDeleteInvitation={deleteInvitation} 
